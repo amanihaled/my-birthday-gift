@@ -150,27 +150,36 @@ body {
    while framing the letter nicely.
 */
 
-/* Top Left */
-.envelope-wrapper.open .p1 { transform: translate(-35vw, -35vh) scale(1); }
-/* Top Right */
-.envelope-wrapper.open .p2 { transform: translate(35vw, -35vh) scale(1); }
-/* Middle Left */
-.envelope-wrapper.open .p3 { transform: translate(-40vw, 0px) scale(1); }
-/* Middle Right */
-.envelope-wrapper.open .p4 { transform: translate(40vw, 0px) scale(1); }
-/* Bottom Left */
-.envelope-wrapper.open .p5 { transform: translate(-35vw, 35vh) scale(1); }
-/* Bottom Right */
-.envelope-wrapper.open .p6 { transform: translate(35vw, 35vh) scale(1); }
+/* Top Left - Moved further left and higher */
+.envelope-wrapper.open .p1 { transform: translate(-38vw, -38vh) scale(1); }
+/* Top Right - Moved left and higher */
+.envelope-wrapper.open .p2 { transform: translate(32vw, -38vh) scale(1); }
+
+/* Middle Left - Moved further left and slightly up */
+.envelope-wrapper.open .p3 { transform: translate(-43vw, -2vh) scale(1); }
+/* Middle Right - Moved left and slightly up */
+.envelope-wrapper.open .p4 { transform: translate(37vw, -2vh) scale(1); }
+
+/* Bottom Left - Moved further left and tucked higher */
+.envelope-wrapper.open .p5 { transform: translate(-38vw, 32vh) scale(1); }
+/* Bottom Right - Moved left and tucked higher */
+.envelope-wrapper.open .p6 { transform: translate(32vw, 32vh) scale(1); }
 
 /* On very small screens, keep them even closer so they don't touch the edge */
 @media (max-width: 650px) {
-    .envelope-wrapper.open .p1 { transform: translate(-40vw, -38vh) scale(1); }
-    .envelope-wrapper.open .p2 { transform: translate(40vw, -38vh) scale(1); }
-    .envelope-wrapper.open .p3 { transform: translate(-42vw, 5vh) scale(1); }
-    .envelope-wrapper.open .p4 { transform: translate(42vw, 5vh) scale(1); }
-    .envelope-wrapper.open .p5 { transform: translate(-40vw, 38vh) scale(1); }
-    .envelope-wrapper.open .p6 { transform: translate(40vw, 38vh) scale(1); }
+    :root {
+        --letter-w: 85vw;
+        --letter-h: 60vh;
+        --photo-w: 35vw;
+    }
+
+    /* Maintain the "Higher & Left" shift on mobile devices */
+    .envelope-wrapper.open .p1 { transform: translate(-43vw, -40vh) scale(1); }
+    .envelope-wrapper.open .p2 { transform: translate(37vw, -40vh) scale(1); }
+    .envelope-wrapper.open .p3 { transform: translate(-45vw, 3vh) scale(1); }
+    .envelope-wrapper.open .p4 { transform: translate(41vw, 3vh) scale(1); }
+    .envelope-wrapper.open .p5 { transform: translate(-43vw, 40vh) scale(1); }
+    .envelope-wrapper.open .p6 { transform: translate(37vw, 40vh) scale(1); }
 }
 
 .out-photo:hover { transform: scale(1.4) !important; z-index: 100; cursor: zoom-in; }
