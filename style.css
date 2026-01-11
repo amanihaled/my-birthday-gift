@@ -168,3 +168,77 @@ body {
     border: 8px solid white;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+
+/* --- PHOTO BLAST BASE --- */
+.photo-blast {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: 10;
+}
+
+.out-photo {
+    position: absolute;
+    width: 130px; /* Classic size */
+    height: auto;
+    border: 6px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none; /* Prevents clicking before it opens */
+}
+
+/* --- THE SCATTER POSITIONS (6 Photo Layout) --- */
+
+/* Top Left */
+.envelope-wrapper.open .p1 {
+    transform: translate(-220px, -280px) rotate(-15deg) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Top Right */
+.envelope-wrapper.open .p2 {
+    transform: translate(120px, -300px) rotate(10deg) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Middle Left */
+.envelope-wrapper.open .p3 {
+    transform: translate(-280px, -80px) rotate(-10deg) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Middle Right */
+.envelope-wrapper.open .p4 {
+    transform: translate(180px, -100px) rotate(15deg) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Bottom Left */
+.envelope-wrapper.open .p5 {
+    transform: translate(-180px, 120px) rotate(-5deg) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Bottom Right */
+.envelope-wrapper.open .p6 {
+    transform: translate(100px, 140px) rotate(8deg) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hover to Inspect Photo */
+.out-photo:hover {
+    transform: scale(1.8) !important;
+    z-index: 100;
+    cursor: zoom-in;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
