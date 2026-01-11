@@ -151,19 +151,19 @@ body {
 */
 
 /* Top Left - Moved further left and higher */
-.envelope-wrapper.open .p1 { transform: translate(-40vw, -40vh) scale(1); }
+.envelope-wrapper.open .p1 { transform: translate(-20vw, -50vh) scale(1); }
 /* Top Right - Moved left and higher */
-.envelope-wrapper.open .p2 { transform: translate(20vw, -40vh) scale(1); }
+.envelope-wrapper.open .p2 { transform: translate(20vw, -50vh) scale(1); }
 
 /* Middle Left - Moved further left and slightly up */
-.envelope-wrapper.open .p3 { transform: translate(-40vw, 5vh) scale(1); }
+.envelope-wrapper.open .p3 { transform: translate(-20vw, 5vh) scale(1); }
 /* Middle Right - Moved left and slightly up */
-.envelope-wrapper.open .p4 { transform: translate(20vw, -5vh) scale(1); }
+.envelope-wrapper.open .p4 { transform: translate(20vw, -10vh) scale(1); }
 
 /* Bottom Left - Moved further left and tucked higher */
-.envelope-wrapper.open .p5 { transform: translate(-40vw, 30vh) scale(1); }
+.envelope-wrapper.open .p5 { transform: translate(-20vw, 20vh) scale(1); }
 /* Bottom Right - Moved left and tucked higher */
-.envelope-wrapper.open .p6 { transform: translate(20vw, 20vh) scale(1); }
+.envelope-wrapper.open .p6 { transform: translate(20vw, 10vh) scale(1); }
 
 /* On very small screens, keep them even closer so they don't touch the edge */
 @media (max-width: 650px) {
