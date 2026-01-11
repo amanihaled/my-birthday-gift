@@ -12,7 +12,7 @@
     --photo-w: 200px; /* Large, clear photos */
 }
 
-@media (max-width: 650px) {
+@media (max-width: 600px) {
     :root {
         --letter-w: 85vw;
         --letter-h: 60vh;
@@ -166,7 +166,7 @@ body {
 .envelope-wrapper.open .p6 { transform: translate(20vw, 10vh) scale(1); }
 
 /* On very small screens, keep them even closer so they don't touch the edge */
-@media (max-width: 650px) {
+@media (max-width: 600px) {
     :root {
         --letter-w: 85vw;
         --letter-h: 60vh;
