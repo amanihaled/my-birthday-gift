@@ -71,10 +71,10 @@ body {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 175px solid var(--env-pocket);
-    border-right: 175px solid var(--env-pocket);
-    border-bottom: 120px solid var(--env-pocket);
-    border-top: 110px solid transparent;
+    border-left: 200px solid var(--env-pocket);
+    border-right: 200px solid var(--env-pocket);
+    border-bottom: 150px solid var(--env-pocket);
+    border-top: 150px solid transparent;
     z-index: 3;
     transition: all 0.5s ease;
 }
