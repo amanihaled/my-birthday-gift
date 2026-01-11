@@ -156,9 +156,9 @@ body {
 .envelope-wrapper.open .p2 { transform: translate(40vw, -40vh) scale(1); }
 
 /* Middle Left - Moved further left and slightly up */
-.envelope-wrapper.open .p3 { transform: translate(-40vw, -2vh) scale(1); }
+.envelope-wrapper.open .p3 { transform: translate(-40vw, -40vh) scale(1); }
 /* Middle Right - Moved left and slightly up */
-.envelope-wrapper.open .p4 { transform: translate(40vw, -2vh) scale(1); }
+.envelope-wrapper.open .p4 { transform: translate(40vw, -40vh) scale(1); }
 
 /* Bottom Left - Moved further left and tucked higher */
 .envelope-wrapper.open .p5 { transform: translate(-40vw, 40vh) scale(1); }
