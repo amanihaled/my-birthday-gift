@@ -174,12 +174,12 @@ body {
     }
 
     /* Maintain the "Higher & Left" shift on mobile devices */
-    .envelope-wrapper.open .p1 { transform: translate(-40vw, -40vh) scale(1); }
-    .envelope-wrapper.open .p2 { transform: translate(40vw, 40vh) scale(1); }
-    .envelope-wrapper.open .p3 { transform: translate(-40vw, 40vh) scale(1); }
-    .envelope-wrapper.open .p4 { transform: translate(40vw, 40vh) scale(1); }
-    .envelope-wrapper.open .p5 { transform: translate(-40vw, 40vh) scale(1); }
-    .envelope-wrapper.open .p6 { transform: translate(40vw, 40vh) scale(1); }
+    .envelope-wrapper.open .p1 { transform: translate(-35vw, -35vh) scale(1); }
+    .envelope-wrapper.open .p2 { transform: translate(20vw, -35vh) scale(1); }
+    .envelope-wrapper.open .p3 { transform: translate(-35vw, 5vh) scale(1); }
+    .envelope-wrapper.open .p4 { transform: translate(20vw, -10vh) scale(1); }
+    .envelope-wrapper.open .p5 { transform: translate(-35vw, 25vh) scale(1); }
+    .envelope-wrapper.open .p6 { transform: translate(20vw, 10vh) scale(1); }
 }
 
 .out-photo:hover { transform: scale(1.4) !important; z-index: 100; cursor: zoom-in; }
