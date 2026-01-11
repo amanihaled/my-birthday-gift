@@ -1,24 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
 
 :root {
-    --bg-color: #d4c3a1;        /* Antique desk color */
+    --bg-color: #d4c3a1;
     --env-color: #1a2a6c;       /* Midnight Navy */
     --env-flap: #121d4a;        /* Darker Navy */
-    --env-pocket: #23395d;      /* Subtle gradient navy */
-    --letter-bg: #fdf5e6;       /* Cream parchment */
-    --gold: #d4af37;            /* Classic Gold */
+    --env-pocket: #23395d;
+    --letter-bg: #fdf5e6;       /* Cream Parchment */
+    --gold: #d4af37;
+    
+    /* Default Distances (Desktop) */
+    --x-dist: 300px;
+    --y-dist: 250px;
+    --letter-w: 400px;
+    --photo-w: 140px;
+}
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 600px) {
+    :root {
+        --x-dist: 110px;  /* Photos stay closer on small screens */
+        --y-dist: 200px;
+        --letter-w: 85vw; /* Fills screen width */
+        --photo-w: 28vw;  /* Scale photos down */
+    }
 }
 
 body {
-    background-color: var(--bg-color);
-    /* Soft vignette effect for an old-room feel */
     background: radial-gradient(circle, #e5d3b3 0%, #b5a48b 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     font-family: 'Playfair Display', serif;
+    overflow-x: hidden;
 }
 
 .envelope-wrapper {
@@ -26,16 +41,17 @@ body {
     cursor: pointer;
 }
 
+/* --- THE ENVELOPE --- */
 .envelope {
     position: relative;
     width: 350px;
     height: 230px;
     background-color: var(--env-color);
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    border: 1px solid rgba(212, 175, 55, 0.3); /* Thin gold border */
+    transition: all 0.5s ease;
 }
 
-/* --- THE TOP FLAP --- */
+/* Top Flap */
 .envelope::before {
     content: "";
     position: absolute;
@@ -46,7 +62,7 @@ body {
     border-left: 175px solid transparent;
     border-right: 175px solid transparent;
     transform-origin: top;
-    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s ease;
 }
 
 .pocket {
@@ -60,208 +76,100 @@ body {
     border-bottom: 120px solid var(--env-pocket);
     border-top: 110px solid transparent;
     z-index: 3;
+    transition: all 0.5s ease;
 }
 
 /* --- THE LETTER --- */
 .letter {
     position: absolute;
     top: 40px;
-    left: 15px;
-    width: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--letter-w);
     height: 180px;
     background: var(--letter-bg);
-    padding: 25px;
+    padding: 30px;
     box-sizing: border-box;
-    transition: all 0.7s ease-in-out;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
     border: 1px solid #e0d5ba;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.05); /* Paper depth */
+    overflow-y: auto;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
 }
 
-.text h2 {
-    font-family: 'Pinyon Script', cursive;
-    font-size: 28px;
-    margin: 0;
-    color: #3e2723;
-}
+.text h2 { font-family: 'Pinyon Script', cursive; font-size: 32px; margin: 0; color: #3e2723; }
+.text p { font-size: 16px; line-height: 1.6; color: #4e342e; }
+.signature { font-family: 'Pinyon Script', cursive; font-size: 28px; text-align: right; }
 
-.text p {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #4e342e;
-}
-
-.signature {
-    font-family: 'Pinyon Script', cursive;
-    font-size: 24px;
-    text-align: right;
-    margin-top: 10px;
-}
-
-/* --- THE WAX SEAL --- */
+/* --- WAX SEAL --- */
 .wax-seal {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     background: #8b0000;
     z-index: 6;
     transform: translate(-50%, -20%);
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    border: 2px solid #a52a2a;
-}
-
-/* Add a gold 'crest' inside the seal */
-.wax-seal::after {
-    content: "❤";
-    color: var(--gold);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    font-size: 24px;
-    opacity: 0.7;
-}
-
-/* --- HIDE ENVELOPE WHEN OPENED --- */
-
-/* Hides the main blue box and its shadow */
-.envelope-wrapper.open .envelope {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
     transition: all 0.5s ease;
 }
 
-/* Hides the top flap */
-.envelope-wrapper.open .envelope::before {
+.wax-seal::after { content: "❤"; color: var(--gold); font-size: 24px; opacity: 0.7; }
+
+/* Jitter Effect */
+@keyframes jitter {
+    0% { transform: translate(-50%, -20%) rotate(0deg); }
+    33% { transform: translate(-51%, -19%) rotate(2deg); }
+    66% { transform: translate(-49%, -21%) rotate(-2deg); }
+    100% { transform: translate(-50%, -20%) rotate(0deg); }
+}
+.envelope-wrapper:hover .wax-seal { animation: jitter 0.3s infinite; }
+
+/* --- OPEN STATE: ENVELOPE VANISHES --- */
+.envelope-wrapper.open .envelope,
+.envelope-wrapper.open .envelope::before,
+.envelope-wrapper.open .pocket,
+.envelope-wrapper.open .wax-seal {
     opacity: 0;
     visibility: hidden;
-    transition: all 0.5s ease;
-}
-
-/* Hides the front pocket */
-.envelope-wrapper.open .pocket {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s ease;
 }
 
 .envelope-wrapper.open .letter {
-    /* Puts the letter in the center of the screen for easy reading */
-    transform: translateY(-50%) translateX(-50%);
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 400px; /* Slightly wider for better reading */
-    height: 550px; 
-    z-index: 5;
+    transform: translate(-50%, -50%);
+    height: 75vh;
+    z-index: 10;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);
 }
 
-.envelope-wrapper.open .wax-seal {
-    display: none;
-}
-
-/* Jitter effect for the seal */
-@keyframes jitter {
-    0% { transform: translate(-50%, -20%) rotate(0deg); }
-    25% { transform: translate(-52%, -18%) rotate(2deg); }
-    50% { transform: translate(-48%, -22%) rotate(-2deg); }
-    100% { transform: translate(-50%, -20%) rotate(0deg); }
-}
-
-.envelope-wrapper:hover .wax-seal {
-    animation: jitter 0.3s infinite;
-}
-
-.instruction {
-    margin-top: 50px;
-    color: #4e342e;
-    letter-spacing: 3px;
-    font-size: 11px;
-    text-transform: uppercase;
-}
-
-.letter-image {
-    width: 100%;
-    margin-top: 15px;
-    border: 8px solid white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* --- PHOTO BLAST BASE --- */
-.photo-blast {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    z-index: 10;
-}
-
+/* --- PHOTO BLAST --- */
 .out-photo {
     position: absolute;
-    width: 130px; /* Classic size */
+    width: var(--photo-w);
     height: auto;
     border: 6px solid white;
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
-    pointer-events: none; /* Prevents clicking before it opens */
+    z-index: 11;
 }
 
-/* --- ADJUST PHOTOS TO NOT COVER THE LETTER --- */
-/* We increase the 'X' (horizontal) values so they fly further left and right */
+/* Photo Scatter Positions */
+.envelope-wrapper.open .p1 { transform: translate(calc(var(--x-dist) * -1.1), calc(var(--y-dist) * -1.1)) rotate(-10deg) scale(1); opacity: 1; }
+.envelope-wrapper.open .p2 { transform: translate(var(--x-dist), calc(var(--y-dist) * -1.2)) rotate(10deg) scale(1); opacity: 1; }
+.envelope-wrapper.open .p3 { transform: translate(calc(var(--x-dist) * -1.25), -20px) rotate(-5deg) scale(1); opacity: 1; }
+.envelope-wrapper.open .p4 { transform: translate(calc(var(--x-dist) * 1.25), -20px) rotate(15deg) scale(1); opacity: 1; }
+.envelope-wrapper.open .p5 { transform: translate(calc(var(--x-dist) * -1.1), var(--y-dist)) rotate(-8deg) scale(1); opacity: 1; }
+.envelope-wrapper.open .p6 { transform: translate(var(--x-dist), var(--y-dist)) rotate(5deg) scale(1); opacity: 1; }
 
-/* Top Left */
-.envelope-wrapper.open .p1 {
-    transform: translate(-450px, -250px) rotate(-15deg) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
+.out-photo:hover { transform: scale(1.6) !important; z-index: 100; cursor: zoom-in; }
 
-/* Top Right */
-.envelope-wrapper.open .p2 {
-    transform: translate(450px, -250px) rotate(10deg) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Middle Left (Pushed far left) */
-.envelope-wrapper.open .p3 {
-    transform: translate(-500px, 20px) rotate(-10deg) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Middle Right (Pushed far right) */
-.envelope-wrapper.open .p4 {
-    transform: translate(500px, 20px) rotate(15deg) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Bottom Left */
-.envelope-wrapper.open .p5 {
-    transform: translate(-420px, 300px) rotate(-5deg) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Bottom Right */
-.envelope-wrapper.open .p6 {
-    transform: translate(420px, 300px) rotate(8deg) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-/* Hover to Inspect Photo */
-.out-photo:hover {
-    transform: scale(1.8) !important;
-    z-index: 100;
-    cursor: zoom-in;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-}
+.instruction { margin-top: 50px; color: #4e342e; text-transform: uppercase; letter-spacing: 3px; font-size: 11px; }
