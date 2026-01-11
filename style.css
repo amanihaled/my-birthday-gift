@@ -8,21 +8,26 @@
     --letter-bg: #fdf5e6;
     --gold: #d4af37;
     
-    /* SYNCED WIDTHS */
-    --letter-w: 420px; 
-    --env-h: 280px;
-    --x-dist: 350px;
-    --y-dist: 280px;
+    /* Sizing */
+    --letter-w: 400px;
     --photo-w: 150px;
+    
+    /* Framing Distances (Desktop) */
+    --frame-x-corner: 280px; /* Horizontal distance for corner photos */
+    --frame-y-corner: 280px; /* Vertical distance for corner photos */
+    --frame-x-side: 320px;   /* Horizontal distance for side photos */
 }
 
+/* --- MOBILE ADJUSTMENTS (Phone) --- */
 @media (max-width: 650px) {
     :root {
         --letter-w: 85vw;
-        --env-h: 200px;
-        --x-dist: 115px;
-        --y-dist: 240px;
-        --photo-w: 30vw;
+        --photo-w: 28vw;
+        
+        /* Framing Distances (Mobile) - Calculated to fit snugly */
+        --frame-x-corner: 45vw;
+        --frame-y-corner: 220px;
+        --frame-x-side: 58vw;
     }
 }
 
@@ -48,72 +53,71 @@ body {
 /* --- THE ENVELOPE --- */
 .envelope {
     position: relative;
-    width: var(--letter-w);
-    height: var(--env-h);
+    width: 350px;
+    height: 230px;
     background-color: var(--env-color);
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     transition: opacity 0.5s ease;
     z-index: 3;
 }
 
-/* Updated Top Flap to match width exactly */
 .envelope::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     z-index: 5;
-    border-top: calc(var(--env-h) / 1.6) solid var(--env-flap);
-    border-left: calc(var(--letter-w) / 2) solid transparent;
-    border-right: calc(var(--letter-w) / 2) solid transparent;
+    border-top: 150px solid var(--env-flap);
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
     transform-origin: top;
     transition: all 0.6s ease;
 }
 
-/* Updated Pocket to match width exactly */
 .pocket {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0;
     height: 0;
-    border-left: calc(var(--letter-w) / 2) solid var(--env-pocket);
-    border-right: calc(var(--letter-w) / 2) solid var(--env-pocket);
-    border-bottom: calc(var(--env-h) / 2) solid var(--env-pocket);
-    border-top: calc(var(--env-h) / 2.2) solid transparent;
+    border-left: 175px solid var(--env-pocket);
+    border-right: 175px solid var(--env-pocket);
+    border-bottom: 120px solid var(--env-pocket);
+    border-top: 110px solid transparent;
     z-index: 4;
     transition: opacity 0.5s ease;
 }
 
-/* --- THE LETTER (Tucked in deeper) --- */
+/* --- THE LETTER --- */
 .letter {
     position: absolute;
-    bottom: 10px; /* Tucks it into the bottom of the envelope */
-    width: calc(var(--letter-w) * 0.92); /* Slightly smaller than envelope to stay hidden */
-    height: calc(var(--env-h) * 0.85);
+    top: 20px;
+    width: var(--letter-w);
+    height: 190px;
     background: var(--letter-bg);
-    padding: 25px;
+    padding: 30px;
     box-sizing: border-box;
     transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
     border: 1px solid #e0d5ba;
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.05);
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
+    opacity: 1;
 }
 
-.text h2 { font-family: 'Pinyon Script', cursive; font-size: 28px; margin-top: 0; color: #3e2723; }
-.text p { font-size: 15px; line-height: 1.5; color: #4e342e; }
-.signature { font-family: 'Pinyon Script', cursive; font-size: 24px; text-align: right; margin-top: 10px; }
+.text h2 { font-family: 'Pinyon Script', cursive; font-size: 32px; margin-top: 0; color: #3e2723; }
+.text p { font-size: 16px; line-height: 1.6; color: #4e342e; }
+.signature { font-family: 'Pinyon Script', cursive; font-size: 28px; text-align: right; }
 
 /* --- WAX SEAL --- */
 .wax-seal {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     background: #8b0000;
     z-index: 10;
-    transform: translate(-50%, -10%);
+    transform: translate(-50%, -20%);
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     display: flex;
@@ -121,7 +125,15 @@ body {
     align-items: center;
     transition: opacity 0.4s ease;
 }
-.wax-seal::after { content: "❤"; color: var(--gold); font-size: 22px; opacity: 0.7; }
+.wax-seal::after { content: "❤"; color: var(--gold); font-size: 24px; opacity: 0.7; }
+
+@keyframes jitter {
+    0% { transform: translate(-50%, -20%) rotate(0deg); }
+    33% { transform: translate(-51%, -19%) rotate(2deg); }
+    66% { transform: translate(-49%, -21%) rotate(-2deg); }
+    100% { transform: translate(-50%, -20%) rotate(0deg); }
+}
+.envelope-wrapper:not(.open):hover .wax-seal { animation: jitter 0.3s infinite; }
 
 /* --- OPEN STATE --- */
 .envelope-wrapper.open .envelope,
@@ -133,17 +145,13 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: var(--letter-w);
-    height: 550px; 
+    height: 520px; 
+    transform: translateY(-50%) scale(1.05);
     z-index: 15;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);
 }
 
-/* --- PHOTO BLAST --- */
+/* --- PHOTO BLAST (FRAMING THE LETTER) --- */
 .out-photo {
     position: absolute;
     width: var(--photo-w);
@@ -159,12 +167,19 @@ body {
 
 .envelope-wrapper.open .out-photo { opacity: 1; pointer-events: auto; }
 
-.envelope-wrapper.open .p1 { transform: translate(calc(var(--x-dist) * -1), calc(var(--y-dist) * -1)) rotate(-10deg) scale(1); }
-.envelope-wrapper.open .p2 { transform: translate(var(--x-dist), calc(var(--y-dist) * -1.1)) rotate(10deg) scale(1); }
-.envelope-wrapper.open .p3 { transform: translate(calc(var(--x-dist) * -1.15), 0px) rotate(-5deg) scale(1); }
-.envelope-wrapper.open .p4 { transform: translate(calc(var(--x-dist) * 1.15), 10px) rotate(12deg) scale(1); }
-.envelope-wrapper.open .p5 { transform: translate(calc(var(--x-dist) * -1), var(--y-dist)) rotate(-8deg) scale(1); }
-.envelope-wrapper.open .p6 { transform: translate(var(--x-dist), var(--y-dist)) rotate(5deg) scale(1); }
+/* NEW POSITIONS: Framing the letter nicely */
+/* Top Left */
+.envelope-wrapper.open .p1 { transform: translate(calc(var(--frame-x-corner) * -1), calc(var(--frame-y-corner) * -1)) rotate(-15deg) scale(1); }
+/* Top Right */
+.envelope-wrapper.open .p2 { transform: translate(var(--frame-x-corner), calc(var(--frame-y-corner) * -1)) rotate(15deg) scale(1); }
+/* Middle Left */
+.envelope-wrapper.open .p3 { transform: translate(calc(var(--frame-x-side) * -1), 0px) rotate(-5deg) scale(1); }
+/* Middle Right */
+.envelope-wrapper.open .p4 { transform: translate(var(--frame-x-side), 0px) rotate(10deg) scale(1); }
+/* Bottom Left */
+.envelope-wrapper.open .p5 { transform: translate(calc(var(--frame-x-corner) * -1), var(--frame-y-corner)) rotate(-10deg) scale(1); }
+/* Bottom Right */
+.envelope-wrapper.open .p6 { transform: translate(var(--frame-x-corner), var(--frame-y-corner)) rotate(10deg) scale(1); }
 
 .out-photo:hover { transform: scale(1.6) !important; z-index: 100; cursor: zoom-in; }
 
