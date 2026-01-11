@@ -1,24 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital@0;1&display=swap');
 
 :root {
-    --bg-color: #e5d3b3;        /* Vintage parchment color */
-    --env-color: #800020;       /* Deep burgundy */
-    --env-flap: #66001a;        /* Darker burgundy for depth */
-    --env-pocket: #911631;      /* Lighter burgundy for the front */
-    --letter-bg: #fdf5e6;       /* Old paper color */
-    --text-color: #3e2723;      /* Ink-like brown/black */
-    --wax-seal: #c41e3a;        /* Classic red wax */
+    --bg-color: #d4c3a1;        /* Antique desk color */
+    --env-color: #1a2a6c;       /* Midnight Navy */
+    --env-flap: #121d4a;        /* Darker Navy */
+    --env-pocket: #23395d;      /* Subtle gradient navy */
+    --letter-bg: #fdf5e6;       /* Cream parchment */
+    --gold: #d4af37;            /* Classic Gold */
 }
 
 body {
     background-color: var(--bg-color);
+    /* Soft vignette effect for an old-room feel */
+    background: radial-gradient(circle, #e5d3b3 0%, #b5a48b 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: 'Playfair Display', serif; /* Classic elegant font */
-    overflow: hidden;
+    font-family: 'Playfair Display', serif;
 }
 
 .envelope-wrapper {
@@ -28,10 +28,11 @@ body {
 
 .envelope {
     position: relative;
-    width: 320px;
-    height: 220px;
+    width: 350px;
+    height: 230px;
     background-color: var(--env-color);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Thin gold border */
 }
 
 /* --- THE TOP FLAP --- */
@@ -41,23 +42,22 @@ body {
     top: 0;
     left: 0;
     z-index: 4;
-    border-top: 140px solid var(--env-flap);
-    border-left: 160px solid transparent;
-    border-right: 160px solid transparent;
+    border-top: 150px solid var(--env-flap);
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
     transform-origin: top;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- THE POCKET --- */
 .pocket {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid var(--env-pocket);
-    border-right: 160px solid var(--env-pocket);
-    border-bottom: 110px solid var(--env-pocket);
+    border-left: 175px solid var(--env-pocket);
+    border-right: 175px solid var(--env-pocket);
+    border-bottom: 120px solid var(--env-pocket);
     border-top: 110px solid transparent;
     z-index: 3;
 }
@@ -65,75 +65,106 @@ body {
 /* --- THE LETTER --- */
 .letter {
     position: absolute;
-    top: 40px; /* Kept low to stay hidden */
+    top: 40px;
     left: 15px;
-    width: 290px;
-    height: 170px;
+    width: 320px;
+    height: 180px;
     background: var(--letter-bg);
     padding: 25px;
     box-sizing: border-box;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.7s ease-in-out;
     z-index: 2;
-    overflow: hidden;
-    box-shadow: inset 0 0 100px rgba(181, 150, 110, 0.2); /* Paper texture effect */
-    border: 1px solid #dcd3c1;
+    border: 1px solid #e0d5ba;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.05); /* Paper depth */
 }
 
-.text {
-    color: var(--text-color);
-    line-height: 1.6;
-    font-style: italic;
+.text h2 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 28px;
+    margin: 0;
+    color: #3e2723;
 }
 
-/* --- OPEN STATE --- */
+.text p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4e342e;
+}
+
+.signature {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 24px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* --- THE WAX SEAL --- */
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 55px;
+    height: 55px;
+    background: #8b0000;
+    z-index: 6;
+    transform: translate(-50%, -20%);
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    border: 2px solid #a52a2a;
+}
+
+/* Add a gold 'crest' inside the seal */
+.wax-seal::after {
+    content: "❤";
+    color: var(--gold);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 24px;
+    opacity: 0.7;
+}
+
+/* --- ANIMATIONS --- */
 .envelope-wrapper.open .envelope::before {
     transform: rotateX(180deg);
     z-index: 1;
 }
 
 .envelope-wrapper.open .letter {
-    transform: translateY(-200px); /* Adjust this if it's still too high */
-    height: 400px; 
+    transform: translateY(-220px);
+    height: 450px; 
     z-index: 5;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* --- THE WAX SEAL (Instead of Heart) --- */
-.heart {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    width: 50px;
-    height: 50px;
-    background: var(--wax-seal);
-    z-index: 6;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.5s ease-in-out;
+.envelope-wrapper.open .wax-seal {
+    display: none;
 }
 
-/* Adds a "stamped" look to the wax seal */
-.heart::after {
-    content: "B"; /* You can put the first letter of their name here! */
-    color: #ffd700;
-    font-weight: bold;
-    font-size: 20px;
-    font-family: 'serif';
-    opacity: 0.6;
+/* Jitter effect for the seal */
+@keyframes jitter {
+    0% { transform: translate(-50%, -20%) rotate(0deg); }
+    25% { transform: translate(-52%, -18%) rotate(2deg); }
+    50% { transform: translate(-48%, -22%) rotate(-2deg); }
+    100% { transform: translate(-50%, -20%) rotate(0deg); }
 }
 
-.envelope-wrapper.open .heart {
-    transform: translate(-50%, -50%) scale(0);
+.envelope-wrapper:hover .wax-seal {
+    animation: jitter 0.3s infinite;
 }
 
 .instruction {
-    margin-top: 40px;
-    color: #3e2723;
-    font-weight: bold;
+    margin-top: 50px;
+    color: #4e342e;
+    letter-spacing: 3px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 12px;
+}
+
+.letter-image {
+    width: 100%;
+    margin-top: 15px;
+    border: 8px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
