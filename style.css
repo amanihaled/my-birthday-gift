@@ -153,7 +153,7 @@ body {
 /* Top Left - Moved further left and higher */
 .envelope-wrapper.open .p1 { transform: translate(-40vw, -40vh) scale(1); }
 /* Top Right - Moved left and higher */
-.envelope-wrapper.open .p2 { transform: translate(40vw, -40vh) scale(1); }
+.envelope-wrapper.open .p2 { transform: translate(40vw, 40vh) scale(1); }
 
 /* Middle Left - Moved further left and slightly up */
 .envelope-wrapper.open .p3 { transform: translate(-40vw, -40vh) scale(1); }
@@ -175,7 +175,7 @@ body {
 
     /* Maintain the "Higher & Left" shift on mobile devices */
     .envelope-wrapper.open .p1 { transform: translate(-40vw, -40vh) scale(1); }
-    .envelope-wrapper.open .p2 { transform: translate(40vw, -40vh) scale(1); }
+    .envelope-wrapper.open .p2 { transform: translate(40vw, 40vh) scale(1); }
     .envelope-wrapper.open .p3 { transform: translate(-40vw, 40vh) scale(1); }
     .envelope-wrapper.open .p4 { transform: translate(40vw, 40vh) scale(1); }
     .envelope-wrapper.open .p5 { transform: translate(-40vw, 40vh) scale(1); }
