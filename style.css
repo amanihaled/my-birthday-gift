@@ -2,6 +2,7 @@
     --bg-color: #fce4ec;
     --env-color: #f06292;
     --env-flap: #d81b60;
+    --env-front: #f48fb1; /* A slightly lighter pink for the front pocket */
     --letter-bg: #ffffff;
 }
 
@@ -15,6 +16,10 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
+.container {
+    text-align: center;
+}
+
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -25,14 +30,16 @@ body {
     width: 300px;
     height: 200px;
     background-color: var(--env-color);
+    /* This is the back of the envelope */
 }
 
-/* The Flap */
+/* --- THE FLAP --- */
 .envelope::before {
     content: "";
     position: absolute;
     top: 0;
-    z-index: 2;
+    left: 0;
+    z-index: 4; /* Sits on the very top when closed */
     border-top: 130px solid var(--env-flap);
     border-left: 150px solid transparent;
     border-right: 150px solid transparent;
@@ -40,9 +47,24 @@ body {
     transition: all 0.5s ease-in-out;
 }
 
-.letter {
+/* --- THE FRONT POCKET (This hides the letter) --- */
+.envelope::after {
+    content: "";
     position: absolute;
     bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid var(--env-front);
+    z-index: 3; /* Sits above the letter */
+}
+
+/* --- THE LETTER --- */
+.letter {
+    position: absolute;
+    bottom: 5px; /* Tucked inside */
     left: 10px;
     width: 280px;
     height: 180px;
@@ -50,7 +72,9 @@ body {
     padding: 20px;
     box-sizing: border-box;
     transition: all 0.5s ease-in-out;
-    z-index: 1;
+    z-index: 2; /* Sits behind the flap and front pocket */
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .letter-image {
@@ -59,16 +83,16 @@ body {
     border-radius: 5px;
 }
 
-/* Open State Animations */
+/* --- OPEN STATE --- */
 .envelope-wrapper.open .envelope::before {
     transform: rotateX(180deg);
-    z-index: 0;
+    z-index: 1; /* Moves behind everything when opened */
 }
 
 .envelope-wrapper.open .letter {
-    transform: translateY(-120px);
-    height: 350px; /* Expands when opened */
-    z-index: 2;
+    transform: translateY(-130px); /* Slides up */
+    height: 350px; 
+    z-index: 5; /* Moves to the very front when opened */
 }
 
 .heart {
@@ -78,7 +102,7 @@ body {
     width: 30px;
     height: 30px;
     background: #ff1744;
-    z-index: 3;
+    z-index: 6; /* Always above the flap */
     transform: translate(-50%, -20%) rotate(45deg);
     transition: transform 0.5s ease-in-out;
 }
@@ -97,4 +121,10 @@ body {
 
 .envelope-wrapper.open .heart {
     transform: translate(-50%, -20%) rotate(45deg) scale(0);
+}
+
+.instruction {
+    margin-top: 30px;
+    color: #880e4f;
+    font-weight: bold;
 }
