@@ -58,9 +58,9 @@ body {
     top: 0;
     left: 0;
     z-index: 4;
-    border-top: 150px solid var(--env-flap);
-    border-left: 175px solid transparent;
-    border-right: 175px solid transparent;
+    border-top: 200px solid var(--env-flap);
+    border-left: 225px solid transparent;
+    border-right: 225px solid transparent;
     transform-origin: top;
     transition: all 0.6s ease;
 }
