@@ -161,9 +161,9 @@ body {
 .envelope-wrapper.open .p4 { transform: translate(40vw, -40vh) scale(1); }
 
 /* Bottom Left - Moved further left and tucked higher */
-.envelope-wrapper.open .p5 { transform: translate(-40vw, 40vh) scale(1); }
+.envelope-wrapper.open .p5 { transform: translate(-40vw, 50vh) scale(1); }
 /* Bottom Right - Moved left and tucked higher */
-.envelope-wrapper.open .p6 { transform: translate(40vw, 40vh) scale(1); }
+.envelope-wrapper.open .p6 { transform: translate(40vw, 50vh) scale(1); }
 
 /* On very small screens, keep them even closer so they don't touch the edge */
 @media (max-width: 650px) {
