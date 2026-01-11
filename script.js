@@ -1,4 +1,5 @@
-const envelope = document.querySelector('.envelope-wrapper');
-envelope.addEventListener('click', () => {
-    envelope.classList.toggle('open');
+const envelopeWrapper = document.getElementById('envelopeWrapper');
+
+envelopeWrapper.addEventListener('click', () => {
+    envelopeWrapper.classList.toggle('open');
 });
