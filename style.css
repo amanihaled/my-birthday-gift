@@ -1,0 +1,100 @@
+:root {
+    --bg-color: #fce4ec;
+    --env-color: #f06292;
+    --env-flap: #d81b60;
+    --letter-bg: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: var(--env-color);
+}
+
+/* The Flap */
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    border-top: 130px solid var(--env-flap);
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out;
+}
+
+.letter {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 280px;
+    height: 180px;
+    background: var(--letter-bg);
+    padding: 20px;
+    box-sizing: border-box;
+    transition: all 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.letter-image {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Open State Animations */
+.envelope-wrapper.open .envelope::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.envelope-wrapper.open .letter {
+    transform: translateY(-120px);
+    height: 350px; /* Expands when opened */
+    z-index: 2;
+}
+
+.heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: #ff1744;
+    z-index: 3;
+    transform: translate(-50%, -20%) rotate(45deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+.heart:before, .heart:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #ff1744;
+    border-radius: 50%;
+}
+
+.heart:before { left: -15px; }
+.heart:after { top: -15px; }
+
+.envelope-wrapper.open .heart {
+    transform: translate(-50%, -20%) rotate(45deg) scale(0);
+}
