@@ -176,8 +176,8 @@ body {
     /* Maintain the "Higher & Left" shift on mobile devices */
     .envelope-wrapper.open .p1 { transform: translate(-40vw, -40vh) scale(1); }
     .envelope-wrapper.open .p2 { transform: translate(40vw, -40vh) scale(1); }
-    .envelope-wrapper.open .p3 { transform: translate(-40vw, 3vh) scale(1); }
-    .envelope-wrapper.open .p4 { transform: translate(40vw, 3vh) scale(1); }
+    .envelope-wrapper.open .p3 { transform: translate(-40vw, 40vh) scale(1); }
+    .envelope-wrapper.open .p4 { transform: translate(40vw, 40vh) scale(1); }
     .envelope-wrapper.open .p5 { transform: translate(-40vw, 40vh) scale(1); }
     .envelope-wrapper.open .p6 { transform: translate(40vw, 40vh) scale(1); }
 }
