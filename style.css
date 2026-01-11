@@ -8,20 +8,20 @@
     --letter-bg: #fdf5e6;       /* Cream Parchment */
     --gold: #d4af37;
     
-    /* Default Distances (Desktop) */
-    --x-dist: 300px;
-    --y-dist: 250px;
+    /* Default Distances for Desktop */
+    --x-dist: 320px;
+    --y-dist: 260px;
     --letter-w: 400px;
-    --photo-w: 140px;
+    --photo-w: 150px;
 }
 
-/* --- MOBILE ADJUSTMENTS --- */
-@media (max-width: 600px) {
+/* --- MOBILE ADJUSTMENTS (Phone) --- */
+@media (max-width: 650px) {
     :root {
-        --x-dist: 110px;  /* Photos stay closer on small screens */
-        --y-dist: 200px;
-        --letter-w: 85vw; /* Fills screen width */
-        --photo-w: 28vw;  /* Scale photos down */
+        --x-dist: 115px;  /* Photos stay closer to letter on phones */
+        --y-dist: 220px;
+        --letter-w: 85vw; /* Letter fits the phone screen */
+        --photo-w: 28vw;  /* Photos scale down */
     }
 }
 
@@ -33,34 +33,37 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: 'Playfair Display', serif;
-    overflow-x: hidden;
+    overflow: hidden; /* Prevents scrolling during animation */
 }
 
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* --- THE ENVELOPE --- */
 .envelope {
     position: relative;
-    width: 400px;
-    height: 300px;
+    width: 350px;
+    height: 230px;
     background-color: var(--env-color);
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    transition: all 0.5s ease;
+    transition: opacity 0.5s ease;
+    z-index: 3;
 }
 
-/* Top Flap */
 .envelope::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 4;
-    border-top: 200px solid var(--env-flap);
-    border-left: 225px solid transparent;
-    border-right: 225px solid transparent;
+    z-index: 5;
+    border-top: 150px solid var(--env-flap);
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
     transform-origin: top;
     transition: all 0.6s ease;
 }
@@ -71,33 +74,31 @@ body {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 200px solid var(--env-pocket);
-    border-right: 200px solid var(--env-pocket);
-    border-bottom: 150px solid var(--env-pocket);
-    border-top: 150px solid transparent;
-    z-index: 3;
-    transition: all 0.5s ease;
+    border-left: 175px solid var(--env-pocket);
+    border-right: 175px solid var(--env-pocket);
+    border-bottom: 120px solid var(--env-pocket);
+    border-top: 110px solid transparent;
+    z-index: 4;
+    transition: opacity 0.5s ease;
 }
 
 /* --- THE LETTER --- */
 .letter {
     position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 20px;
     width: var(--letter-w);
-    height: 180px;
+    height: 190px;
     background: var(--letter-bg);
     padding: 30px;
     box-sizing: border-box;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
     border: 1px solid #e0d5ba;
-    overflow-y: auto;
     box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
+    opacity: 1;
 }
 
-.text h2 { font-family: 'Pinyon Script', cursive; font-size: 32px; margin: 0; color: #3e2723; }
+.text h2 { font-family: 'Pinyon Script', cursive; font-size: 32px; margin-top: 0; color: #3e2723; }
 .text p { font-size: 16px; line-height: 1.6; color: #4e342e; }
 .signature { font-family: 'Pinyon Script', cursive; font-size: 28px; text-align: right; }
 
@@ -109,67 +110,67 @@ body {
     width: 60px;
     height: 60px;
     background: #8b0000;
-    z-index: 6;
+    z-index: 10;
     transform: translate(-50%, -20%);
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.5s ease;
+    transition: opacity 0.4s ease;
 }
-
 .wax-seal::after { content: "❤"; color: var(--gold); font-size: 24px; opacity: 0.7; }
 
-/* Jitter Effect */
+/* Seal Jitter on Hover */
 @keyframes jitter {
     0% { transform: translate(-50%, -20%) rotate(0deg); }
     33% { transform: translate(-51%, -19%) rotate(2deg); }
     66% { transform: translate(-49%, -21%) rotate(-2deg); }
     100% { transform: translate(-50%, -20%) rotate(0deg); }
 }
-.envelope-wrapper:hover .wax-seal { animation: jitter 0.3s infinite; }
+.envelope-wrapper:not(.open):hover .wax-seal { animation: jitter 0.3s infinite; }
 
-/* --- OPEN STATE: ENVELOPE VANISHES --- */
+/* --- OPEN STATE --- */
 .envelope-wrapper.open .envelope,
 .envelope-wrapper.open .envelope::before,
 .envelope-wrapper.open .pocket,
 .envelope-wrapper.open .wax-seal {
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
 }
 
 .envelope-wrapper.open .letter {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 75vh;
-    z-index: 10;
+    height: 520px; 
+    transform: translateY(-50%) scale(1.05);
+    z-index: 15;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);
 }
 
-/* --- PHOTO BLAST --- */
+/* --- PHOTO BLAST (FRAMING THE LETTER) --- */
 .out-photo {
     position: absolute;
     width: var(--photo-w);
     height: auto;
     border: 6px solid white;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
-    z-index: 11;
+    z-index: 20;
+    pointer-events: none;
 }
 
-/* Photo Scatter Positions */
-.envelope-wrapper.open .p1 { transform: translate(calc(var(--x-dist) * -1.1), calc(var(--y-dist) * -1.1)) rotate(-10deg) scale(1); opacity: 1; }
-.envelope-wrapper.open .p2 { transform: translate(var(--x-dist), calc(var(--y-dist) * -1.2)) rotate(10deg) scale(1); opacity: 1; }
-.envelope-wrapper.open .p3 { transform: translate(calc(var(--x-dist) * -1.25), -20px) rotate(-5deg) scale(1); opacity: 1; }
-.envelope-wrapper.open .p4 { transform: translate(calc(var(--x-dist) * 1.25), -20px) rotate(15deg) scale(1); opacity: 1; }
-.envelope-wrapper.open .p5 { transform: translate(calc(var(--x-dist) * -1.1), var(--y-dist)) rotate(-8deg) scale(1); opacity: 1; }
-.envelope-wrapper.open .p6 { transform: translate(var(--x-dist), var(--y-dist)) rotate(5deg) scale(1); opacity: 1; }
+.envelope-wrapper.open .out-photo { opacity: 1; pointer-events: auto; }
+
+/* Positions (Calculated to sit just outside the letter) */
+.envelope-wrapper.open .p1 { transform: translate(calc(var(--x-dist) * -1), calc(var(--y-dist) * -1)) rotate(-10deg) scale(1); }
+.envelope-wrapper.open .p2 { transform: translate(var(--x-dist), calc(var(--y-dist) * -1.1)) rotate(10deg) scale(1); }
+.envelope-wrapper.open .p3 { transform: translate(calc(var(--x-dist) * -1.15), 0px) rotate(-5deg) scale(1); }
+.envelope-wrapper.open .p4 { transform: translate(calc(var(--x-dist) * 1.15), 10px) rotate(12deg) scale(1); }
+.envelope-wrapper.open .p5 { transform: translate(calc(var(--x-dist) * -1), var(--y-dist)) rotate(-8deg) scale(1); }
+.envelope-wrapper.open .p6 { transform: translate(var(--x-dist), var(--y-dist)) rotate(5deg) scale(1); }
 
 .out-photo:hover { transform: scale(1.6) !important; z-index: 100; cursor: zoom-in; }
 
-.instruction { margin-top: 50px; color: #4e342e; text-transform: uppercase; letter-spacing: 3px; font-size: 11px; }
+.instruction { margin-top: 40px; color: #4e342e; text-transform: uppercase; letter-spacing: 3px; font-size: 11px; transition: opacity 0.5s; }
+.envelope-wrapper.open + .instruction { opacity: 0; }text-transform: uppercase; letter-spacing: 3px; font-size: 11px; }
