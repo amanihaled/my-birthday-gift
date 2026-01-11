@@ -9,14 +9,14 @@
     /* Sizing Controls */
     --letter-w: 400px;
     --letter-h: 550px;
-    --photo-w: 220px; /* Increased photo size */
+    --photo-w: 200px; /* Large, clear photos */
 }
 
 @media (max-width: 650px) {
     :root {
-        --letter-w: 90vw;
-        --letter-h: 70vh;
-        --photo-w: 45vw; /* Increased mobile photo size */
+        --letter-w: 85vw;
+        --letter-h: 60vh;
+        --photo-w: 35vw;
     }
 }
 
@@ -27,16 +27,16 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    overflow: hidden;
+    overflow: hidden; 
     font-family: 'Playfair Display', serif;
 }
 
-/* --- THE ENVELOPE (CLOSED STATE) --- */
+/* --- ENVELOPE (CLOSED) --- */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
-    width: 450px;
-    height: 300px;
+    width: 420px;
+    height: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,11 +56,10 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    border-top: 160px solid var(--env-flap);
-    border-left: 225px solid transparent;
-    border-right: 225px solid transparent;
+    border-top: 150px solid var(--env-flap);
+    border-left: 210px solid transparent;
+    border-right: 210px solid transparent;
     z-index: 5;
-    transition: all 0.5s ease;
 }
 
 .pocket {
@@ -68,20 +67,20 @@ body {
     bottom: 0;
     width: 0;
     height: 0;
-    border-left: 225px solid var(--env-pocket);
-    border-right: 225px solid var(--env-pocket);
-    border-bottom: 150px solid var(--env-pocket);
-    border-top: 150px solid transparent;
+    border-left: 210px solid var(--env-pocket);
+    border-right: 210px solid var(--env-pocket);
+    border-bottom: 140px solid var(--env-pocket);
+    border-top: 140px solid transparent;
     z-index: 4;
 }
 
-/* --- THE LETTER (OPEN STATE FIX) --- */
+/* --- LETTER (OPEN) --- */
 .letter {
     position: absolute;
     width: var(--letter-w);
-    height: 200px;
+    height: 180px;
     background: var(--letter-bg);
-    padding: 40px;
+    padding: 35px;
     box-sizing: border-box;
     z-index: 2;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -100,8 +99,9 @@ body {
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
-.text h2 { font-family: 'Pinyon Script', cursive; font-size: 35px; color: #3e2723; }
-.text p { font-size: 17px; line-height: 1.8; color: #4e342e; }
+.text h2 { font-family: 'Pinyon Script', cursive; font-size: 32px; color: #3e2723; margin-top: 0; }
+.text p { font-size: 16px; line-height: 1.7; color: #4e342e; }
+.signature { font-family: 'Pinyon Script', cursive; font-size: 26px; text-align: right; margin-top: 20px; }
 
 /* --- WAX SEAL --- */
 .wax-seal {
@@ -119,9 +119,8 @@ body {
     align-items: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
-.wax-seal::after { content: "❤"; color: #d4af37; font-size: 25px; }
+.wax-seal::after { content: "❤"; color: #d4af37; font-size: 24px; }
 
-/* --- OPEN STATE: VANISH ENVELOPE --- */
 .envelope-wrapper.open .envelope,
 .envelope-wrapper.open .wax-seal,
 .envelope-wrapper.open .pocket {
@@ -129,34 +128,51 @@ body {
     pointer-events: none;
 }
 
-/* --- PHOTO POSITIONS (LARGER & SCATTERED FURTHER) --- */
+/* --- PHOTO BLAST (STRAIGHT & CLOSE) --- */
 .out-photo {
     position: absolute;
     width: var(--photo-w);
     height: auto;
-    border: 8px solid white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    transition: all 1s ease-out;
+    border: 6px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
     z-index: 11;
 }
 
-.envelope-wrapper.open .out-photo { opacity: 1; }
+.envelope-wrapper.open .out-photo { 
+    opacity: 1; 
+}
+
+/* POSITIONING LOGIC: 
+   Using vw/vh ensures photos stay inside the browser window 
+   while framing the letter nicely.
+*/
 
 /* Top Left */
-.envelope-wrapper.open .p1 { transform: translate(-550px, -400px) rotate(-12deg) scale(1); }
+.envelope-wrapper.open .p1 { transform: translate(-35vw, -35vh) scale(1); }
 /* Top Right */
-.envelope-wrapper.open .p2 { transform: translate(550px, -400px) rotate(10deg) scale(1); }
+.envelope-wrapper.open .p2 { transform: translate(35vw, -35vh) scale(1); }
 /* Middle Left */
-.envelope-wrapper.open .p3 { transform: translate(-600px, 0px) rotate(-5deg) scale(1); }
+.envelope-wrapper.open .p3 { transform: translate(-40vw, 0px) scale(1); }
 /* Middle Right */
-.envelope-wrapper.open .p4 { transform: translate(600px, 0px) rotate(8deg) scale(1); }
+.envelope-wrapper.open .p4 { transform: translate(40vw, 0px) scale(1); }
 /* Bottom Left */
-.envelope-wrapper.open .p5 { transform: translate(-500px, 450px) rotate(-8deg) scale(1); }
+.envelope-wrapper.open .p5 { transform: translate(-35vw, 35vh) scale(1); }
 /* Bottom Right */
-.envelope-wrapper.open .p6 { transform: translate(500px, 450px) rotate(5deg) scale(1); }
+.envelope-wrapper.open .p6 { transform: translate(35vw, 35vh) scale(1); }
 
-.out-photo:hover { transform: scale(1.5) !important; z-index: 100; cursor: pointer; }
+/* On very small screens, keep them even closer so they don't touch the edge */
+@media (max-width: 650px) {
+    .envelope-wrapper.open .p1 { transform: translate(-40vw, -38vh) scale(1); }
+    .envelope-wrapper.open .p2 { transform: translate(40vw, -38vh) scale(1); }
+    .envelope-wrapper.open .p3 { transform: translate(-42vw, 5vh) scale(1); }
+    .envelope-wrapper.open .p4 { transform: translate(42vw, 5vh) scale(1); }
+    .envelope-wrapper.open .p5 { transform: translate(-40vw, 38vh) scale(1); }
+    .envelope-wrapper.open .p6 { transform: translate(40vw, 38vh) scale(1); }
+}
 
-.instruction { margin-top: 30px; color: #4e342e; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
+.out-photo:hover { transform: scale(1.4) !important; z-index: 100; cursor: zoom-in; }
+
+.instruction { margin-top: 30px; color: #4e342e; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
