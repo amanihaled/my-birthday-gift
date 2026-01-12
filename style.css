@@ -142,26 +142,7 @@ body {
     padding-bottom: 20px;
 }
 
-/* --- WAX SEAL --- */
-.wax-seal {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background: #8b0000;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -20%);
-    z-index: 6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-}
-.wax-seal::after { content: "❤"; color: #d4af37; font-size: 24px; }
-
 .envelope-wrapper.open .envelope,
-.envelope-wrapper.open .wax-seal,
 .envelope-wrapper.open .pocket {
     opacity: 0;
     pointer-events: none;
@@ -231,4 +212,12 @@ body {
 
 .out-photo:hover { transform: scale(1.4) !important; z-index: 100; cursor: zoom-in; }
 
-.instruction { margin-top: 30px; color: #4e342e; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+.instruction {
+    margin-top: 30px;
+    color: #4e342e;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    text-align: center;    /* Centers the text */
+    width: 100%;           /* Ensures it uses the full width available */
+}
