@@ -74,18 +74,34 @@ body {
     z-index: 4;
 }
 
-/* --- LETTER (OPEN) --- */
+/* --- THE LETTER (Optimized for Long Content) --- */
 .letter {
     position: absolute;
     width: var(--letter-w);
-    height: 180px;
+    height: 180px; /* Initial height before opening */
     background: var(--letter-bg);
-    padding: 35px;
+    padding: 30px 40px; /* Balanced padding */
     box-sizing: border-box;
     z-index: 2;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    overflow-y: auto;
+    
+    /* Elegant Scrolling for long poems */
+    overflow-y: auto; 
+    scrollbar-width: thin;
+    scrollbar-color: #b5a48b transparent;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+.letter::-webkit-scrollbar {
+    width: 5px;
+}
+.letter::-webkit-scrollbar-track {
+    background: transparent;
+}
+.letter::-webkit-scrollbar-thumb {
+    background-color: #b5a48b;
+    border-radius: 10px;
 }
 
 .envelope-wrapper.open .letter {
@@ -97,11 +113,34 @@ body {
     height: var(--letter-h);
     z-index: 10;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    padding: 50px; /* More space when open */
 }
 
-.text h2 { font-family: 'Pinyon Script', cursive; font-size: 32px; color: #3e2723; margin-top: 0; }
-.text p { font-size: 16px; line-height: 1.7; color: #4e342e; }
-.signature { font-family: 'Pinyon Script', cursive; font-size: 26px; text-align: right; margin-top: 20px; }
+/* --- TEXT STYLING --- */
+.text {
+    font-family: 'Playfair Display', serif;
+    color: #3e2723;
+}
+.text h2 { 
+    font-family: 'Pinyon Script', cursive; 
+    font-size: 38px; 
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(62, 39, 35, 0.1);
+    display: inline-block;
+}
+.text p { 
+    font-size: 15px; /* Slightly smaller to fit more text */
+    line-height: 1.8; /* Breathable line spacing */
+    margin-bottom: 12px;
+    text-align: justify; /* Makes the poem look like a formal block */
+}
+.signature { 
+    font-family: 'Pinyon Script', cursive; 
+    font-size: 26px; 
+    text-align: right; 
+    margin-top: 40px; 
+    padding-bottom: 20px;
+}
 
 /* --- WAX SEAL --- */
 .wax-seal {
